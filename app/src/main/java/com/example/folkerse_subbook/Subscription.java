@@ -1,14 +1,18 @@
 package com.example.folkerse_subbook;
 
+import android.os.Parcelable;
+
 import org.w3c.dom.Comment;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * Created by cf on 2018-02-03.
  */
 
-public class Subscription {
+public class Subscription implements Serializable{
+
     private String name;
     private Date date;
     private double charge;
@@ -76,10 +80,14 @@ public class Subscription {
     }
 
 
-    public String toString(){
+    public String getDateString(){
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
-        String dt = fmt.format(date);
-        return name + " | " + dt + " | " + Double.toString(charge);
+        return fmt.format(date);
+    }
+
+    public String toString(){
+        String dateString = this.getDateString();
+        return name + " | " + dateString + " | " + Double.toString(charge);
     }
 
 
