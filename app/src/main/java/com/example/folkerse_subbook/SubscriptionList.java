@@ -123,7 +123,7 @@ public class SubscriptionList {
 
         NumberFormat fmt = NumberFormat.getInstance();
         fmt.setMinimumFractionDigits(2);
-        fmt.setMaximumIntegerDigits(2);
+        fmt.setMaximumFractionDigits(2);
         return fmt.format(s);
     }
 

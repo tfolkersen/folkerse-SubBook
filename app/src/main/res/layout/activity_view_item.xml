@@ -10,7 +10,6 @@
         android:id="@+id/nameView"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@android:color/black"
@@ -25,8 +24,8 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="26sp"
-        app:layout_constraintTop_toBottomOf="@+id/nameView"
-        tools:layout_editor_absoluteX="59dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameView" />
 
     <TextView
         android:id="@+id/commentView"
@@ -35,18 +34,28 @@
         android:layout_marginTop="56dp"
         android:text="TextView"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/secondView"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondView" />
 
     <Button
         android:id="@+id/buttonDelete"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/buttonDeleteText"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="148dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEdit"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/buttonDeleteText" />
+
+    <Button
+        android:id="@+id/buttonEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:text="@string/buttonEditText"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/buttonEditText" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.folkerse_subbook;
 
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.w3c.dom.Comment;
 
