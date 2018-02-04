@@ -17,16 +17,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView subDisplay;
+    public ListView subDisplay;
     private Button buttonNew;
-    private ArrayAdapter<Subscription> subAdapter;
-    public static ArrayList<Subscription> subList;
+    private static SubscriptionList subList;
 
     public MainActivity(){
         super();
         Log.i("CREATED","xd");
-        subList = new ArrayList<Subscription>();
-
+        subList = new SubscriptionList();
         //Add some testing data
         try {
             subList.add(new Subscription("Name xd", new Date(), 20.2, "asd"));
@@ -45,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         buttonNew = findViewById(R.id.buttonNew);
         subDisplay = findViewById(R.id.subDisplay);
-        subAdapter = new ArrayAdapter<Subscription>(this, R.layout.list_element, subList);
-        subDisplay.setAdapter(subAdapter);
+
+        subList.setup(this, R.layout.list_element, subDisplay);
 
         //ADD LISTENERS
         buttonNew.setOnClickListener(new View.OnClickListener(){
@@ -66,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Done with listeners
 
-        subAdapter.notifyDataSetChanged();
+        subList.refreshDisplay();
+
     }
 
 
@@ -78,13 +77,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //Load everything
-        //Refresh data
-        subAdapter.notifyDataSetChanged();
-    }
 
 
     @Override
@@ -92,19 +84,9 @@ public class MainActivity extends AppCompatActivity {
         switch(resultCode){
             case IntentCodes.DELETE_ITEM:
                 subList.remove((int) intent.getSerializableExtra("index"));
-                subAdapter.notifyDataSetChanged();
+                subList.refreshDisplay();
                 break;
         }
-    }
-
-
-    private void saveData(){
-        //Save all the data
-    }
-
-
-    private void loadData(){
-        //Load the data and refresh
     }
 
 

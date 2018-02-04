@@ -48,7 +48,7 @@ public class ViewItem extends AppCompatActivity {
 
     protected void refreshView(){
         nameView.setText(subscription.getName());
-        secondView.setText(subscription.getDateString() + "\n" + "$" + subscription.getCharge());
+        secondView.setText(subscription.getDateString() + "\n" + "$" + subscription.getChargeString());
         commentView.setText(subscription.getComment());
     }
 

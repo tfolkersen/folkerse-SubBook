@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import org.w3c.dom.Comment;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -65,6 +66,13 @@ public class Subscription implements Serializable{
         return charge;
     }
 
+    public String getChargeString(){
+        NumberFormat fmt = NumberFormat.getInstance();
+        fmt.setMinimumFractionDigits(2);
+        fmt.setMaximumFractionDigits(2);
+        return fmt.format(charge);
+    }
+
 
     public void setComment(String comment) throws CommentTooLongException{
         if(comment.length() > 30){
@@ -87,7 +95,9 @@ public class Subscription implements Serializable{
 
     public String toString(){
         String dateString = this.getDateString();
-        return name + " | " + dateString + " | " + Double.toString(charge);
+        String chargeString = this.getChargeString();
+
+        return name + " | " + dateString + " | " + "$" + chargeString;
     }
 
 
