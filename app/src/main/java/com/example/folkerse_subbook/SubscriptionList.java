@@ -1,18 +1,34 @@
 package com.example.folkerse_subbook;
 
 import android.content.Context;
-import android.view.View;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Created by cf on 2018-02-04.
  */
 
 public class SubscriptionList {
-    private ArrayList<Subscription> contents;
+    public ArrayList<Subscription> contents;
     private ArrayAdapter<Subscription> adapter;
 
 
@@ -27,6 +43,8 @@ public class SubscriptionList {
         super();
         this.setup(context, resource, v);
     }
+
+
 
 
     public void clear(){
@@ -52,13 +70,16 @@ public class SubscriptionList {
     }
 
 
-    public double sum(){
+    public String sumString(){
         double s = 0;
         for(int i = 0; i < contents.size(); i++){
             s += contents.get(i).getCharge();
         }
 
-        return s;
+        NumberFormat fmt = NumberFormat.getInstance();
+        fmt.setMinimumFractionDigits(2);
+        fmt.setMaximumIntegerDigits(2);
+        return fmt.format(s);
     }
 
     public void setup(Context context, int resource, ListView v){
