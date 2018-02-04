@@ -3,6 +3,7 @@ package com.example.folkerse_subbook;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -57,18 +58,24 @@ public class ViewItem extends AppCompatActivity {
     }
 
     protected void editItem(){
+        Intent current = getIntent();
+        int index = (int) current.getSerializableExtra("index");
+
         Intent intent = new Intent(this, EditItem.class);
         intent.putExtra("sub", subscription);
+        intent.putExtra("requestCode", IntentCodes.EDIT_ITEM);
+        intent.putExtra("index", index);
         startActivityForResult(intent, IntentCodes.EDIT_ITEM);
-
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        Log.i("RETURNED LMAO","asd");
         switch(resultCode){
-            case IntentCodes.EDITED_ITEM:
-                break;
+            case IntentCodes.EDIT_ITEM:
+                setResult(IntentCodes.EDIT_ITEM, intent);
+                finish();
         }
     }
 

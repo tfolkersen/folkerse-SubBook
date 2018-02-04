@@ -3,6 +3,7 @@ package com.example.folkerse_subbook;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,15 +40,7 @@ public class EditItem extends AppCompatActivity {
         setContentView(R.layout.activity_edit_item);
 
         intent = getIntent();
-        switch((int) intent.getSerializableExtra("requestCode")){
-            case IntentCodes.NEW_ITEM:
-                returnCode = IntentCodes.NEW_ITEM;
-                break;
-
-            case IntentCodes.EDIT_ITEM:
-                returnCode = IntentCodes.EDITED_ITEM;
-                break;
-        }
+        returnCode = (int) intent.getSerializableExtra("requestCode");
 
         date = new Date();
 
@@ -63,6 +56,19 @@ public class EditItem extends AppCompatActivity {
         buttonSave = findViewById(R.id.buttonSave);
         buttonCancel = findViewById(R.id.buttonCancel);
 
+
+
+        if(returnCode == IntentCodes.EDIT_ITEM){
+            Subscription sub = (Subscription) intent.getSerializableExtra("sub");
+            date = sub.getDate();
+            value = sub.getCharge();
+            name = sub.getName();
+            comment = sub.getComment();
+
+            valueEdit.setText(Double.toString(value));
+            commentEdit.setText(comment);
+            nameEdit.setText(name);
+        }
 
 
         refreshDateView(dateView, date);
@@ -90,6 +96,13 @@ public class EditItem extends AppCompatActivity {
             }
         });
 
+        buttonCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                cancel();
+            }
+        });
+
     }
 
     protected void refreshDateView(TextView view, Date d){
@@ -98,9 +111,13 @@ public class EditItem extends AppCompatActivity {
     }
 
 
+    protected void cancel(){
+        Intent returnIntent = new Intent();
+        setResult(IntentCodes.CANCELLED, returnIntent);
+        finish();
+    }
+
     protected void saveChanges(){
-
-
         Subscription sub;
         try{
             name = nameEdit.getText().toString();
@@ -116,9 +133,15 @@ public class EditItem extends AppCompatActivity {
             errorView.setText(e.toString());
             return;
         }
-
+        Log.i("asd","234");
         Intent returnIntent = new Intent();
         returnIntent.putExtra("sub", sub);
+        if(returnCode == IntentCodes.EDIT_ITEM){
+            int index = (int) intent.getSerializableExtra("index");
+            returnIntent.putExtra("index", index);
+        }
+
+
         setResult(returnCode, returnIntent);
         finish();
     }

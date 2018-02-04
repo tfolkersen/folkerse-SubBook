@@ -96,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
                 subList.add(sub);
                 subList.save(this, filename);
                 refreshDisplay();
+                break;
+
+            case IntentCodes.EDIT_ITEM:
+                int index = (int) intent.getSerializableExtra("index");
+                Subscription subscription = (Subscription) intent.getSerializableExtra("sub");
+                subList.set(index, subscription);
+                subList.save(this, filename);
+                refreshDisplay();
+                break;
         }
     }
 

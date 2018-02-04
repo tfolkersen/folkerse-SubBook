@@ -114,6 +114,10 @@ public class SubscriptionList {
         return contents.get(index);
     }
 
+    public void set(int index, Subscription sub){
+        this.contents.set(index, sub);
+    }
+
 
     public String sumString(){
         double s = 0;
