@@ -2,8 +2,8 @@ package com.example.folkerse_subbook;
 
 import org.w3c.dom.Comment;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  * Created by cf on 2018-02-03.
  */
@@ -77,7 +77,9 @@ public class Subscription {
 
 
     public String toString(){
-        return name + " | " + date.toString() + " | " + Double.toString(charge);
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
+        String dt = fmt.format(date);
+        return name + " | " + dt + " | " + Double.toString(charge);
     }
 
 
