@@ -1,35 +1,26 @@
 package com.example.folkerse_subbook;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.Date;
-import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
     public ListView subDisplay;
     private Button buttonNew;
     private TextView costView;
-    public static SubscriptionList subList;
-    private final String filename = "com.example.folkerse_suiuhiuhbbook.test.sav";
+    private SubscriptionList subList;
+    private final String filename = "subList_contents.sav";
+
 
     public MainActivity(){
         super();
@@ -44,14 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        //Get all views
         buttonNew = findViewById(R.id.buttonNew);
         subDisplay = findViewById(R.id.subDisplay);
         costView = findViewById(R.id.costView);
 
-
+        //Init subList
+        subList.load(this, filename);
         subList.setup(this, R.layout.list_element, subDisplay);
+
         //ADD LISTENERS
         buttonNew.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -63,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 catch(Exception e){
                     Log.i("rip","sdfsdfs");
                 }
+                subList.save(v.getContext(), filename);
                 subList.refreshDisplay();
                 costView.setText("Total: $" + subList.sumString());
             }
@@ -77,52 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Done with listeners
-        load();
+        //Done with listeners,
         subList.refreshDisplay();
         costView.setText("Total: $" + subList.sumString());
 
     }
 
-
-    /*
-  Taken from
-  https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
-   */
-    public void save(){
-        String key = "Key";
-        ArrayList<Subscription> ModelArrayList=new ArrayList();
-
-        SharedPreferences shref;
-        SharedPreferences.Editor editor;
-        shref = this.getSharedPreferences("asd", Context.MODE_PRIVATE);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(subList.contents);
-
-        editor = shref.edit();
-        editor.remove(key).commit();
-        editor.putString(key, json);
-        editor.commit();
-
-    }
-
-    /*
-    Taken from
-    https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
-     */
-    public void load(){
-        SharedPreferences shref;
-        SharedPreferences.Editor editor;
-        shref = this.getSharedPreferences("asd", Context.MODE_PRIVATE);
-
-        Gson gson = new Gson();
-
-        String response = shref.getString("asd" , "");
-        subList.contents = gson.fromJson(response,
-                new TypeToken<ArrayList<Subscription>>(){}.getType());
-
-    }
 
     protected void viewItem(int index){
         Intent intent = new Intent(this, ViewItem.class);
@@ -137,15 +90,11 @@ public class MainActivity extends AppCompatActivity {
         switch(resultCode){
             case IntentCodes.DELETE_ITEM:
                 subList.remove((int) intent.getSerializableExtra("index"));
+                subList.save(this, filename);
                 subList.refreshDisplay();
                 costView.setText("Total: $" + subList.sumString());
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
     }
 
 

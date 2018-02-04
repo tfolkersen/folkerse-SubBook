@@ -32,8 +32,6 @@ public class SubscriptionList {
     private ArrayAdapter<Subscription> adapter;
 
 
-
-
     public SubscriptionList(){
         this.contents = new ArrayList<Subscription>();
     }
@@ -45,15 +43,62 @@ public class SubscriptionList {
     }
 
 
+    //taken from lab
+    public void load(Context context, String filename) {
+
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            //ADDED
+            Gson gson = new Gson();
+
+            // Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // 2018-1-25
+            Type listType = new TypeToken<ArrayList<Subscription>>(){}.getType();
+            this.contents = gson.fromJson(in, listType);
+
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            this.contents = new ArrayList<Subscription>();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
+
+    //taken from lab
+    public void save(Context context, String filename) {
+        try {
+            //CHANGED AND ADDED
+            FileOutputStream fos = context.openFileOutput(filename,
+                    Context.MODE_PRIVATE);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(this.contents, out);
+            out.flush();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
 
 
     public void clear(){
         this.contents.clear();
     }
 
+
     public int size(){
         return contents.size();
     }
+
 
     public void add(Subscription sub){
         contents.add(sub);
@@ -82,18 +127,16 @@ public class SubscriptionList {
         return fmt.format(s);
     }
 
+
     public void setup(Context context, int resource, ListView v){
         this.adapter = new ArrayAdapter<Subscription>(context, resource, contents);
         v.setAdapter(adapter);
     }
 
 
-
     public void refreshDisplay(){
         adapter.notifyDataSetChanged();
     }
-
-
 
 
 }
