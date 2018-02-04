@@ -13,7 +13,7 @@ public class NegativeValueException extends Exception {
 
     @Override
     public String toString(){
-        return Double.toString(this.value);
+        return "Negative Value: " + Double.toString(this.value);
     }
 
 

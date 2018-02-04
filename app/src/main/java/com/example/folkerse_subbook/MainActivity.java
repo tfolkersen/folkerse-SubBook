@@ -48,16 +48,7 @@ public class MainActivity extends AppCompatActivity {
         buttonNew.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                try{
-                    subList.add(new Subscription("Name xd", new Date(), 20.2, "asd"));
-                    subList.add(new Subscription("lmao", new Date(), 0.5, "comment here"));
-                }
-                catch(Exception e){
-                    Log.i("rip","sdfsdfs");
-                }
-                subList.save(v.getContext(), filename);
-                subList.refreshDisplay();
-                costView.setText("Total: $" + subList.sumString());
+                makeNew();
             }
 
         });
@@ -81,9 +72,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewItem.class);
         intent.putExtra("sub", subList.get(index));
         intent.putExtra("index", index);
+        intent.putExtra("requestCode", IntentCodes.VIEW_ITEM);
         startActivityForResult(intent, IntentCodes.VIEW_ITEM);
     }
 
+
+    protected void makeNew(){
+        Intent intent = new Intent(this, EditItem.class);
+        intent.putExtra("requestCode", IntentCodes.NEW_ITEM);
+        startActivityForResult(intent, IntentCodes.NEW_ITEM);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
@@ -93,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 subList.save(this, filename);
                 subList.refreshDisplay();
                 costView.setText("Total: $" + subList.sumString());
+                break;
+
+            case IntentCodes.NEW_ITEM:
                 break;
         }
     }

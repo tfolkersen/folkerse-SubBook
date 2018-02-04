@@ -1,10 +1,5 @@
 package com.example.folkerse_subbook;
 
-import android.os.Parcelable;
-import android.util.Log;
-
-import org.w3c.dom.Comment;
-
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -32,9 +27,9 @@ public class Subscription implements Serializable{
     }
 
 
-    public void setName(String name) throws NameTooLongException{
-        if(name.length() > 20){
-            throw new NameTooLongException(name);
+    public void setName(String name) throws InvalidNameLengthException {
+        if(name.length() > 20 || name.length() == 0){
+            throw new InvalidNameLengthException(name);
         }
         this.name = name;
     }

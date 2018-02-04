@@ -1,0 +1,113 @@
+package com.example.folkerse_subbook;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class EditItem extends AppCompatActivity {
+
+    private DatePicker datePicker;
+    private EditText nameEdit;
+    private EditText valueEdit;
+    private EditText commentEdit;
+    private TextView dateView;
+    private Button buttonEditDate;
+    private Button buttonDateConfirm;
+    private TextView errorView;
+    private Button buttonSave;
+    private Button buttonCancel;
+
+    private String name;
+    private double value;
+    private Date date;
+    private String comment;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_item);
+
+
+        date = new Date();
+
+        //Get all views
+        datePicker = findViewById(R.id.datePicker);
+        nameEdit = findViewById(R.id.nameEdit);
+        valueEdit = findViewById(R.id.valueEdit);
+        commentEdit = findViewById(R.id.commentEdit);
+        buttonEditDate = findViewById(R.id.buttonEditDate);
+        dateView = findViewById(R.id.dateView);
+        buttonDateConfirm = findViewById(R.id.buttonDateConfirm);
+        errorView = findViewById(R.id.errorView);
+        buttonSave = findViewById(R.id.buttonSave);
+        buttonCancel = findViewById(R.id.buttonCancel);
+
+
+
+        refreshDateView(dateView, date);
+        datePicker.setVisibility(View.GONE);
+
+
+        buttonEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+
+        buttonDateConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDate();
+            }
+        });
+
+
+    }
+
+    protected void refreshDateView(TextView view, Date d){
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
+        view.setText(fmt.format(d));
+    }
+
+    protected void showDatePicker(){
+        commentEdit.setVisibility(View.GONE);
+        dateView.setVisibility(View.GONE);
+        buttonEditDate.setVisibility(View.GONE);
+        nameEdit.setVisibility(View.GONE);
+        valueEdit.setVisibility(View.GONE);
+        buttonCancel.setVisibility(View.GONE);
+        buttonSave.setVisibility(View.GONE);
+
+
+        datePicker.updateDate(date.getYear()+1900, date.getMonth(), date.getDate());
+        buttonDateConfirm.setVisibility(View.VISIBLE);
+        datePicker.setVisibility(View.VISIBLE);
+    }
+
+    protected void confirmDate(){
+        date = new Date(datePicker.getYear()-1900, datePicker.getMonth(), datePicker.getDayOfMonth());
+
+        commentEdit.setVisibility(View.VISIBLE);
+        dateView.setVisibility(View.VISIBLE);
+        buttonEditDate.setVisibility(View.VISIBLE);
+        nameEdit.setVisibility(View.VISIBLE);
+        valueEdit.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.VISIBLE);
+        buttonCancel.setVisibility(View.VISIBLE);
+
+        buttonDateConfirm.setVisibility(View.GONE);
+        datePicker.setVisibility(View.GONE);
+
+        refreshDateView(dateView, date);
+    }
+}

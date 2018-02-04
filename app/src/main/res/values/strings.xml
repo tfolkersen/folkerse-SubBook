@@ -3,4 +3,11 @@
     <string name="buttonNewText">New Sub</string>
     <string name="buttonDeleteText">Delete</string>
     <string name="buttonEditText">Edit</string>
+    <string name="nameEditText">Name</string>
+    <string name="commentEditText">Comment</string>
+    <string name="valueEditHint">Value</string>
+    <string name="buttonEditDateText">Pick Date</string>
+    <string name="buttonDateConfirmText">Confirm</string>
+    <string name="buttonSaveText">Save</string>
+    <string name="buttonCancelText">Cancel</string>
 </resources>

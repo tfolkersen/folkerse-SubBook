@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class ViewItem extends AppCompatActivity {
 
+    private Button buttonEdit;
     private Button buttonDelete;
     private TextView nameView;
     private TextView secondView;
@@ -24,6 +25,7 @@ public class ViewItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
 
+
         intent = getIntent();
 
         subscription = (Subscription) intent.getSerializableExtra("sub");
@@ -32,6 +34,7 @@ public class ViewItem extends AppCompatActivity {
         secondView = findViewById(R.id.secondView);
         commentView = findViewById(R.id.commentView);
         buttonDelete = findViewById(R.id.buttonDelete);
+        buttonEdit = findViewById(R.id.buttonEdit);
 
         //Set up the view
         refreshView();
@@ -44,7 +47,31 @@ public class ViewItem extends AppCompatActivity {
             }
         });
 
+        buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editItem();
+            }
+        });
+
     }
+
+    protected void editItem(){
+        Intent intent = new Intent(this, EditItem.class);
+        intent.putExtra("sub", subscription);
+        startActivityForResult(intent, IntentCodes.EDIT_ITEM);
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        switch(resultCode){
+            case IntentCodes.EDITED_ITEM:
+                break;
+        }
+    }
+
 
     protected void refreshView(){
         nameView.setText(subscription.getName());

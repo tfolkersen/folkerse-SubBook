@@ -13,7 +13,7 @@ public class CommentTooLongException extends Exception{
 
     @Override
     public String toString(){
-        return this.comment;
+        return "Comment Too Long: " + comment.length();
     }
 
 
