@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">folkerse-SubBook</string>
     <string name="buttonNewText">New Sub</string>
+    <string name="buttonDeleteText">Delete</string>
 </resources>
