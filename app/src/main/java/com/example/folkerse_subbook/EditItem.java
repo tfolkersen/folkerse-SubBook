@@ -29,6 +29,8 @@ public class EditItem extends AppCompatActivity {
     private double value;
     private Date date;
     private String comment;
+    private Intent intent;
+    private int returnCode;
 
 
     @Override
@@ -36,6 +38,16 @@ public class EditItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        intent = getIntent();
+        switch((int) intent.getSerializableExtra("requestCode")){
+            case IntentCodes.NEW_ITEM:
+                returnCode = IntentCodes.NEW_ITEM;
+                break;
+
+            case IntentCodes.EDIT_ITEM:
+                returnCode = IntentCodes.EDITED_ITEM;
+                break;
+        }
 
         date = new Date();
 
@@ -71,6 +83,12 @@ public class EditItem extends AppCompatActivity {
             }
         });
 
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveChanges();
+            }
+        });
 
     }
 
@@ -78,6 +96,33 @@ public class EditItem extends AppCompatActivity {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
         view.setText(fmt.format(d));
     }
+
+
+    protected void saveChanges(){
+
+
+        Subscription sub;
+        try{
+            name = nameEdit.getText().toString();
+            comment = commentEdit.getText().toString();
+            value = Double.parseDouble(valueEdit.getText().toString());
+            sub = new Subscription(name, date, value, comment);
+        }
+        catch(NumberFormatException e){
+            errorView.setText("Enter a Number");
+            return;
+        }
+        catch(Exception e){
+            errorView.setText(e.toString());
+            return;
+        }
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("sub", sub);
+        setResult(returnCode, returnIntent);
+        finish();
+    }
+
 
     protected void showDatePicker(){
         commentEdit.setVisibility(View.GONE);

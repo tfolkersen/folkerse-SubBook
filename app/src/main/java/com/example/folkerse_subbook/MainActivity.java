@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Done with listeners,
-        subList.refreshDisplay();
-        costView.setText("Total: $" + subList.sumString());
-
+        refreshDisplay();
     }
 
 
@@ -89,13 +88,20 @@ public class MainActivity extends AppCompatActivity {
             case IntentCodes.DELETE_ITEM:
                 subList.remove((int) intent.getSerializableExtra("index"));
                 subList.save(this, filename);
-                subList.refreshDisplay();
-                costView.setText("Total: $" + subList.sumString());
+                refreshDisplay();
                 break;
 
             case IntentCodes.NEW_ITEM:
-                break;
+                Subscription sub = (Subscription) intent.getSerializableExtra("sub");
+                subList.add(sub);
+                subList.save(this, filename);
+                refreshDisplay();
         }
+    }
+
+    protected void refreshDisplay(){
+        subList.refreshDisplay();
+        costView.setText("Total: $" + subList.sumString());
     }
 
 
