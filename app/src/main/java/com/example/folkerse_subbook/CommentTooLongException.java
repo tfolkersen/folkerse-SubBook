@@ -1,3 +1,5 @@
+//CommentTooLongException
+
 package com.example.folkerse_subbook;
 
 /**
@@ -7,10 +9,10 @@ package com.example.folkerse_subbook;
  *
  * Exception thrown when comment is too long
  */
-public class CommentTooLongException extends Exception{
+public class CommentTooLongException extends Exception {
     private String comment;
 
-    public CommentTooLongException(String comment){
+    public CommentTooLongException(String comment) {
         this.comment = comment;
     }
 
@@ -18,7 +20,7 @@ public class CommentTooLongException extends Exception{
      * @return Message explaining that the comment is too long, includes its length
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "Comment Too Long: " + comment.length();
     }
 

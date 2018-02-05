@@ -1,3 +1,5 @@
+//ViewItemActivity
+
 package com.example.folkerse_subbook;
 
 import android.content.Intent;
@@ -14,7 +16,6 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class ViewItemActivity extends AppCompatActivity {
-
     //Views for the activity
     private Button buttonEdit;
     private Button buttonDelete;
@@ -46,9 +47,9 @@ public class ViewItemActivity extends AppCompatActivity {
         refreshScreen();
 
         //Add button listeners
-        buttonDelete.setOnClickListener(new View.OnClickListener(){
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 deleteCurrent();
             }
         });
@@ -65,7 +66,7 @@ public class ViewItemActivity extends AppCompatActivity {
     /**
      * Open the Edit activity with this Subscription
      */
-    protected void editItem(){
+    protected void editItem() {
         int index = (int) intent.getSerializableExtra("index");
 
         Intent intent = new Intent(this, EditItemActivity.class);
@@ -84,11 +85,12 @@ public class ViewItemActivity extends AppCompatActivity {
      * @param intent returning intent
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        switch(resultCode){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch (resultCode) {
             case IntentCodes.EDIT_ITEM:
                 setResult(IntentCodes.EDIT_ITEM, intent);
                 finish();
+                break;
         }
     }
 
@@ -96,7 +98,7 @@ public class ViewItemActivity extends AppCompatActivity {
     /**
      * Set views to hold data from the given Subscription
      */
-    protected void refreshScreen(){
+    protected void refreshScreen() {
         nameView.setText(subscription.getName());
         secondView.setText(subscription.getDateString() + "\n" + "$" + subscription.getChargeString());
         commentView.setText(subscription.getComment());
@@ -106,7 +108,7 @@ public class ViewItemActivity extends AppCompatActivity {
     /**
      * Tell MainActivity to delete the current Subscription
      */
-    protected void deleteCurrent(){
+    protected void deleteCurrent() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("index", intent.getSerializableExtra("index"));
         setResult(IntentCodes.DELETE_ITEM, returnIntent);

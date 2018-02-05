@@ -1,3 +1,5 @@
+//MainActivity
+
 package com.example.folkerse_subbook;
 
 import android.content.Intent;
@@ -18,7 +20,6 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity {
-
     //Views of the activity
     public ListView subDisplay;
     private Button buttonNew;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         subList.setup(this, R.layout.list_element, subDisplay);
 
         //ADD LISTENERS
-        buttonNew.setOnClickListener(new View.OnClickListener(){
+        buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeNew();
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Refresh the SubscriptionList, reset total cost view
      */
-    protected void refreshDisplay(){
+    protected void refreshDisplay() {
         subList.refreshDisplay();
         costView.setText("Total: $" + subList.sumString());
     }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
      * Start view activity for selected Subscription
      * @param index position of Subscription in the SubscriptionList
      */
-    protected void viewItem(int index){
+    protected void viewItem(int index) {
         Intent intent = new Intent(this, ViewItemActivity.class);
         intent.putExtra("sub", subList.get(index));
         intent.putExtra("index", index);
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Start edit activity with a blank subscription
      */
-    protected void makeNew(){
+    protected void makeNew() {
         Intent intent = new Intent(this, EditItemActivity.class);
         intent.putExtra("requestCode", IntentCodes.NEW_ITEM);
         startActivityForResult(intent, IntentCodes.NEW_ITEM);
@@ -103,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
      * @param intent return intent
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         Subscription sub;
 
-        switch(resultCode){
+        switch (resultCode) {
             case IntentCodes.DELETE_ITEM:
                 subList.remove((int) intent.getSerializableExtra("index"));
                 subList.save(this, filename);
@@ -129,9 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-
 
 
 }

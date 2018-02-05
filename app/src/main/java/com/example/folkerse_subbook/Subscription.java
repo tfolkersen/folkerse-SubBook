@@ -1,3 +1,5 @@
+//Subscription
+
 package com.example.folkerse_subbook;
 
 import java.io.Serializable;
@@ -17,9 +19,7 @@ import java.util.Date;
  * @see CommentTooLongException
  * @see NegativeValueException
  */
-
-public class Subscription implements Serializable{
-
+public class Subscription implements Serializable {
     private String name;
     private Date date;
     private double charge;
@@ -34,7 +34,7 @@ public class Subscription implements Serializable{
      * @throws NegativeValueException
      * @throws CommentTooLongException
      */
-    public Subscription(String name, Date date, double charge, String comment)throws Exception{
+    public Subscription(String name, Date date, double charge, String comment)throws Exception {
         this.setName(name);
         this.setDate(date);
         this.setCharge(charge);
@@ -47,24 +47,24 @@ public class Subscription implements Serializable{
      * @throws InvalidNameLengthException
      */
     public void setName(String name) throws InvalidNameLengthException {
-        if(name.length() > 20 || name.length() == 0){
+        if (name.length() > 20 || name.length() == 0) {
             throw new InvalidNameLengthException(name);
         }
         this.name = name;
     }
 
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
 
-    public void setDate(Date date){
+    public void setDate(Date date) {
         this.date = date;
     }
 
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
@@ -73,8 +73,8 @@ public class Subscription implements Serializable{
      * @param charge non-negative, rounded to nearest hundredth
      * @throws NegativeValueException
      */
-    public void setCharge(double charge) throws NegativeValueException{
-        if(charge < 0){
+    public void setCharge(double charge) throws NegativeValueException {
+        if (charge < 0) {
             throw new NegativeValueException(charge);
         }
 
@@ -85,7 +85,7 @@ public class Subscription implements Serializable{
     }
 
 
-    public double getCharge(){
+    public double getCharge() {
         return charge;
     }
 
@@ -93,7 +93,7 @@ public class Subscription implements Serializable{
     /**
      * @return The charge, formatted: X.yy
      */
-    public String getChargeString(){
+    public String getChargeString() {
         NumberFormat fmt = NumberFormat.getInstance();
         fmt.setMinimumFractionDigits(2);
         fmt.setMaximumFractionDigits(2);
@@ -105,8 +105,8 @@ public class Subscription implements Serializable{
      * @param comment 0-30 characters
      * @throws CommentTooLongException
      */
-    public void setComment(String comment) throws CommentTooLongException{
-        if(comment.length() > 30){
+    public void setComment(String comment) throws CommentTooLongException {
+        if (comment.length() > 30) {
             throw new CommentTooLongException(comment);
         }
 
@@ -114,7 +114,7 @@ public class Subscription implements Serializable{
     }
 
 
-    public String getComment(){
+    public String getComment() {
         return comment;
     }
 
@@ -123,7 +123,7 @@ public class Subscription implements Serializable{
      * @return Date of subscription, formatted:
      * Year Month Day -- text text number
      */
-    public String getDateString(){
+    public String getDateString() {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
         return fmt.format(date);
     }
@@ -132,7 +132,7 @@ public class Subscription implements Serializable{
     /**
      * @return Summary of Subscription, formatted; excludes comment
      */
-    public String toString(){
+    public String toString() {
         String dateString = this.getDateString();
         String chargeString = this.getChargeString();
 

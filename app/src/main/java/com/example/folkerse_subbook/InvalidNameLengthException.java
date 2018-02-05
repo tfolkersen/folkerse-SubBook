@@ -1,3 +1,5 @@
+//InvalidNameLengthException
+
 package com.example.folkerse_subbook;
 
 /**
@@ -9,10 +11,10 @@ package com.example.folkerse_subbook;
  */
 
 public class InvalidNameLengthException extends Exception {
-
     private String name;
 
-    public InvalidNameLengthException(String name){
+
+    public InvalidNameLengthException(String name) {
         this.name = name;
     }
 
@@ -21,9 +23,8 @@ public class InvalidNameLengthException extends Exception {
      * @return Message showing name length and saying that it's invalid
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "Invalid Name Length: " + name.length();
     }
-
 
 }

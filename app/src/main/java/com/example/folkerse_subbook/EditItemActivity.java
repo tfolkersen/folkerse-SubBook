@@ -1,3 +1,5 @@
+//EditItemActivity
+
 package com.example.folkerse_subbook;
 
 import android.content.Intent;
@@ -14,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EditItemActivity extends AppCompatActivity {
-
     //Views for the activity
     private DatePicker datePicker;
     private EditText nameEdit;
@@ -59,8 +60,8 @@ public class EditItemActivity extends AppCompatActivity {
         buttonSave = findViewById(R.id.buttonSave);
         buttonCancel = findViewById(R.id.buttonCancel);
 
-        //Set values if editing an existing item
-        if(returnCode == IntentCodes.EDIT_ITEM){
+        //Set initial values if editing an existing item
+        if (returnCode == IntentCodes.EDIT_ITEM) {
             Subscription sub = (Subscription) intent.getSerializableExtra("sub");
             date = sub.getDate();
             value = sub.getCharge();
@@ -71,7 +72,6 @@ public class EditItemActivity extends AppCompatActivity {
             commentEdit.setText(comment);
             nameEdit.setText(name);
         }
-
 
         //Set up views
         refreshDateView(dateView, date);
@@ -99,9 +99,9 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-        buttonCancel.setOnClickListener(new View.OnClickListener(){
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 cancel();
             }
         });
@@ -109,40 +109,50 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
 
-    protected void refreshDateView(TextView view, Date d){
+    /**
+     * Put the date into the dateView
+     * @param view
+     * @param d
+     */
+    protected void refreshDateView(TextView view, Date d) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
         view.setText(fmt.format(d));
     }
 
 
-    protected void cancel(){
+    /**
+     * Cancel editing current Subscription, return to ViewItemActivity
+     */
+    protected void cancel() {
         Intent returnIntent = new Intent();
         setResult(IntentCodes.CANCELLED, returnIntent);
         finish();
     }
 
 
-
-    protected void saveChanges(){
+    /**
+     * Send Subscription back to MainActivity if valid, else show error
+     */
+    protected void saveChanges() {
         Subscription sub;
-        try{
+        try {
             name = nameEdit.getText().toString();
             comment = commentEdit.getText().toString();
             value = Double.parseDouble(valueEdit.getText().toString());
             sub = new Subscription(name, date, value, comment);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             errorView.setText("Enter a Number");
             return;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             errorView.setText(e.toString());
             return;
         }
-        Log.i("asd","234");
+
+        //If the Subscription is valid, return it
         Intent returnIntent = new Intent();
         returnIntent.putExtra("sub", sub);
-        if(returnCode == IntentCodes.EDIT_ITEM){
+
+        if (returnCode == IntentCodes.EDIT_ITEM) {
             int index = (int) intent.getSerializableExtra("index");
             returnIntent.putExtra("index", index);
         }
@@ -153,7 +163,10 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
 
-    protected void showDatePicker(){
+    /**
+     * Hide everything but the date picker
+     */
+    protected void showDatePicker() {
         //Hide everything
         commentEdit.setVisibility(View.GONE);
         dateView.setVisibility(View.GONE);
@@ -170,7 +183,10 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
 
-    protected void confirmDate(){
+    /**
+     * Get chosen date, hide date picker
+     */
+    protected void confirmDate() {
         //Get chosen date
         date = new Date(datePicker.getYear()-1900, datePicker.getMonth(), datePicker.getDayOfMonth());
 
