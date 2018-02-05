@@ -1,6 +1,7 @@
 package com.example.folkerse_subbook;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
  * Represents a subscription
  *
  * @author folkerse
- * @version 1.0
+ * @version 1.1
  * @see SubscriptionList
  * @see InvalidNameLengthException
  * @see CommentTooLongException
@@ -27,7 +28,7 @@ public class Subscription implements Serializable{
     /**
      * @param name 1-20 characters
      * @param date
-     * @param charge not negative
+     * @param charge not negative, rounded to nearest hundredth
      * @param comment 0-30 characters
      * @throws InvalidNameLengthException
      * @throws NegativeValueException
@@ -69,7 +70,7 @@ public class Subscription implements Serializable{
 
 
     /**
-     * @param charge non-negative
+     * @param charge non-negative, rounded to nearest hundredth
      * @throws NegativeValueException
      */
     public void setCharge(double charge) throws NegativeValueException{
@@ -77,7 +78,10 @@ public class Subscription implements Serializable{
             throw new NegativeValueException(charge);
         }
 
-        this.charge = charge;
+        NumberFormat fmt = NumberFormat.getInstance();
+        fmt.setMaximumFractionDigits(2);
+        fmt.setRoundingMode(RoundingMode.HALF_UP);
+        this.charge = Double.parseDouble(fmt.format(charge));
     }
 
 
