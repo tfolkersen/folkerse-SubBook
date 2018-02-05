@@ -138,10 +138,11 @@ public class EditItemActivity extends AppCompatActivity {
         try {
             name = nameEdit.getText().toString();
             comment = commentEdit.getText().toString();
-            value = Double.parseDouble(valueEdit.getText().toString());
+            value = Double.parseDouble(valueEdit.getText().toString().replaceAll(",",""));
             sub = new Subscription(name, date, value, comment);
         } catch (NumberFormatException e) {
             errorView.setText("Enter a Number");
+            Log.e("Number Format Exception", e.toString());
             return;
         } catch (Exception e) {
             errorView.setText(e.toString());

@@ -81,7 +81,7 @@ public class Subscription implements Serializable {
         NumberFormat fmt = NumberFormat.getInstance();
         fmt.setMaximumFractionDigits(2);
         fmt.setRoundingMode(RoundingMode.HALF_UP);
-        this.charge = Double.parseDouble(fmt.format(charge));
+        this.charge = Double.parseDouble(fmt.format(charge).replaceAll(",",""));
     }
 
 
