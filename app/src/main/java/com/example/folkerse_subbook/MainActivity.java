@@ -10,7 +10,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
+/**
+ * Main screen showing list of Subscriptions, can click a Subscription to view/edit, or add a new
+ * one
+ *
+ * @author folkerse
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
     //Views of the activity
@@ -57,8 +63,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Refresh the SubscriptionList, reset total cost view
+     */
+    protected void refreshDisplay(){
+        subList.refreshDisplay();
+        costView.setText("Total: $" + subList.sumString());
+    }
+
+
+    /**
+     * Start view activity for selected Subscription
+     * @param index position of Subscription in the SubscriptionList
+     */
     protected void viewItem(int index){
-        Intent intent = new Intent(this, ViewItem.class);
+        Intent intent = new Intent(this, ViewItemActivity.class);
         intent.putExtra("sub", subList.get(index));
         intent.putExtra("index", index);
         intent.putExtra("requestCode", IntentCodes.VIEW_ITEM);
@@ -66,12 +85,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Start edit activity with a blank subscription
+     */
     protected void makeNew(){
-        Intent intent = new Intent(this, EditItem.class);
+        Intent intent = new Intent(this, EditItemActivity.class);
         intent.putExtra("requestCode", IntentCodes.NEW_ITEM);
         startActivityForResult(intent, IntentCodes.NEW_ITEM);
     }
 
+
+    /**
+     * Handle changes to the SubscriptionList from other activities
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param intent return intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         Subscription sub;
@@ -100,10 +130,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void refreshDisplay(){
-        subList.refreshDisplay();
-        costView.setText("Total: $" + subList.sumString());
-    }
+
+
 
 
 }

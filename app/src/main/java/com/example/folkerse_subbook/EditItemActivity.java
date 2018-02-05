@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditItem extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity {
 
     //Views for the activity
     private DatePicker datePicker;
