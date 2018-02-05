@@ -7,19 +7,19 @@
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1517847707074"
+    timestamp="1517848618904"
     token="-5938348860646501394"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="116" />
+        duration="60" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="5" />
+        duration="9" />
     <task
         name="verifier"
         duration="1" />
@@ -72,7 +72,7 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1517847707074"
+        timestamp="1517848618904"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/Users/cf/Desktop/androidJank/asg1/folkerse-SubBook/app/build/intermediates/split-apk/debug/slices/slice_5.apk"

@@ -1,4 +1,4 @@
-#Mon Feb 05 09:21:47 MST 2018
+#Mon Feb 05 09:36:59 MST 2018
 base.0=/Users/cf/Desktop/androidJank/asg1/folkerse-SubBook/app/build/intermediates/transforms/dexMerger/debug/43
 path.0=classes.dex
 renamed.0=classes.dex
