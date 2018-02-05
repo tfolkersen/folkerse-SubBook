@@ -34,7 +34,7 @@ public class Subscription implements Serializable {
      * @throws NegativeValueException
      * @throws CommentTooLongException
      */
-    public Subscription(String name, Date date, double charge, String comment)throws Exception {
+    public Subscription(String name, Date date, double charge, String comment) throws Exception {
         this.setName(name);
         this.setDate(date);
         this.setCharge(charge);

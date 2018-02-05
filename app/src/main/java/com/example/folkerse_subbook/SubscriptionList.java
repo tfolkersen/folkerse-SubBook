@@ -3,6 +3,7 @@
 package com.example.folkerse_subbook;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
  * @see Subscription
  */
 public class SubscriptionList {
-    public ArrayList<Subscription> contents;
+    private ArrayList<Subscription> contents;
     private ArrayAdapter<Subscription> adapter;
 
 
@@ -46,8 +47,9 @@ public class SubscriptionList {
      */
     public SubscriptionList(Context context, int resource, ListView v) {
         super();
-        this.setup(context, resource, v);
+        this.bindListView(context, resource, v);
     }
+
 
 
     //taken from lab
@@ -55,7 +57,6 @@ public class SubscriptionList {
      * Load the data into the SubscriptionList, unbinds any bound ListView
      *
      * @param context calling activity's context
-     * @param filename
      */
     public void load(Context context, String filename) {
 
@@ -86,7 +87,6 @@ public class SubscriptionList {
      * Save the data from the SubscriptionList
      *
      * @param context calling activity's context
-     * @param filename
      */
     public void save(Context context, String filename) {
         try {
@@ -163,7 +163,7 @@ public class SubscriptionList {
      * @param resource ID of xml layout of list element
      * @param v ID of ListView in activity
      */
-    public void setup(Context context, int resource, ListView v) {
+    public void bindListView(Context context, int resource, ListView v) {
         this.adapter = new ArrayAdapter<Subscription>(context, resource, contents);
         v.setAdapter(adapter);
     }

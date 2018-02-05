@@ -21,7 +21,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity {
     //Views of the activity
-    public ListView subDisplay;
+    private ListView subDisplay;
     private Button buttonNew;
     private TextView costView;
     private SubscriptionList subList;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         //Init subList
         subList = new SubscriptionList();
         subList.load(this, filename);
-        subList.setup(this, R.layout.list_element, subDisplay);
+        subList.bindListView(this, R.layout.list_element, subDisplay);
 
         //ADD LISTENERS
         buttonNew.setOnClickListener(new View.OnClickListener() {
