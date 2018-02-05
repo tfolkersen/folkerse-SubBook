@@ -5,7 +5,7 @@
     <string name="buttonEditText">Edit</string>
     <string name="nameEditText">Name</string>
     <string name="commentEditText">Comment</string>
-    <string name="valueEditHint">Value</string>
+    <string name="valueEditHint">Cost</string>
     <string name="buttonEditDateText">Pick Date</string>
     <string name="buttonDateConfirmText">Confirm</string>
     <string name="buttonSaveText">Save</string>
