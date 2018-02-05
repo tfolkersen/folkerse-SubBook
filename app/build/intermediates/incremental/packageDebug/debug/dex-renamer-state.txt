@@ -1,4 +1,4 @@
-#Mon Feb 05 15:49:05 MST 2018
-base.0=/Users/cf/Desktop/final/folkerse-SubBook/app/build/intermediates/transforms/dexMerger/debug/19
+#Mon Feb 05 15:52:57 MST 2018
+base.0=/Users/cf/Desktop/NICEMEME/folkerse-SubBook/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
