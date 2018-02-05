@@ -24,7 +24,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Created by cf on 2018-02-04.
+ * Contains Subscription objects
+ * @author folkerse
+ * @version 1.0
+ * @see Subscription
  */
 
 public class SubscriptionList {
@@ -37,6 +40,13 @@ public class SubscriptionList {
     }
 
 
+    /**
+     * Initialize and bind SubscriptionList to a ListView
+     *
+     * @param context calling activity's context
+     * @param resource ID of xml layout of list element
+     * @param v ID of ListView in activity
+     */
     public SubscriptionList(Context context, int resource, ListView v){
         super();
         this.setup(context, resource, v);
@@ -44,6 +54,12 @@ public class SubscriptionList {
 
 
     //taken from lab
+    /**
+     * Load the data into the SubscriptionList, unbinds any bound ListView
+     *
+     * @param context calling activity's context
+     * @param filename
+     */
     public void load(Context context, String filename) {
 
         try {
@@ -70,6 +86,12 @@ public class SubscriptionList {
 
 
     //taken from lab
+    /**
+     * Save the data from the SubscriptionList
+     *
+     * @param context calling activity's context
+     * @param filename
+     */
     public void save(Context context, String filename) {
         try {
             //CHANGED AND ADDED
@@ -114,11 +136,19 @@ public class SubscriptionList {
         return contents.get(index);
     }
 
+
+    /**
+     * @param index Where to overwrite Subscription
+     * @param sub Subscription to overwrite with
+     */
     public void set(int index, Subscription sub){
         this.contents.set(index, sub);
     }
 
 
+    /**
+     * @return Sum of costs of Subscriptions, formatted: X.yy
+     */
     public String sumString(){
         double s = 0;
         for(int i = 0; i < contents.size(); i++){
@@ -132,12 +162,22 @@ public class SubscriptionList {
     }
 
 
+    /**
+     * Bind the SubscriptionList to a ListView
+     *
+     * @param context calling activity's context
+     * @param resource ID of xml layout of list element
+     * @param v ID of ListView in activity
+     */
     public void setup(Context context, int resource, ListView v){
         this.adapter = new ArrayAdapter<Subscription>(context, resource, contents);
         v.setAdapter(adapter);
     }
 
 
+    /**
+     * Refresh the ListView's display
+     */
     public void refreshDisplay(){
         adapter.notifyDataSetChanged();
     }

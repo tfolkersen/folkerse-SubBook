@@ -4,8 +4,17 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 /**
- * Created by cf on 2018-02-03.
+ * Represents a subscription
+ *
+ * @author folkerse
+ * @version 1.0
+ * @see SubscriptionList
+ * @see InvalidNameLengthException
+ * @see CommentTooLongException
+ * @see NegativeValueException
  */
 
 public class Subscription implements Serializable{
@@ -15,10 +24,15 @@ public class Subscription implements Serializable{
     private double charge;
     private String comment;
 
-    public Subscription(){
-    }
-
-
+    /**
+     * @param name 1-20 characters
+     * @param date
+     * @param charge not negative
+     * @param comment 0-30 characters
+     * @throws InvalidNameLengthException
+     * @throws NegativeValueException
+     * @throws CommentTooLongException
+     */
     public Subscription(String name, Date date, double charge, String comment)throws Exception{
         this.setName(name);
         this.setDate(date);
@@ -27,6 +41,10 @@ public class Subscription implements Serializable{
     }
 
 
+    /**
+     * @param name 1-20 characters
+     * @throws InvalidNameLengthException
+     */
     public void setName(String name) throws InvalidNameLengthException {
         if(name.length() > 20 || name.length() == 0){
             throw new InvalidNameLengthException(name);
@@ -49,6 +67,11 @@ public class Subscription implements Serializable{
         return date;
     }
 
+
+    /**
+     * @param charge non-negative
+     * @throws NegativeValueException
+     */
     public void setCharge(double charge) throws NegativeValueException{
         if(charge < 0){
             throw new NegativeValueException(charge);
@@ -62,6 +85,10 @@ public class Subscription implements Serializable{
         return charge;
     }
 
+
+    /**
+     * @return The charge, formatted: X.yy
+     */
     public String getChargeString(){
         NumberFormat fmt = NumberFormat.getInstance();
         fmt.setMinimumFractionDigits(2);
@@ -70,6 +97,10 @@ public class Subscription implements Serializable{
     }
 
 
+    /**
+     * @param comment 0-30 characters
+     * @throws CommentTooLongException
+     */
     public void setComment(String comment) throws CommentTooLongException{
         if(comment.length() > 30){
             throw new CommentTooLongException(comment);
@@ -84,19 +115,25 @@ public class Subscription implements Serializable{
     }
 
 
+    /**
+     * @return Date of subscription, formatted:
+     * Year Month Day -- text text number
+     */
     public String getDateString(){
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy MMMM d");
         return fmt.format(date);
     }
 
+
+    /**
+     * @return Summary of Subscription, formatted; excludes comment
+     */
     public String toString(){
         String dateString = this.getDateString();
         String chargeString = this.getChargeString();
 
         return name + " | " + dateString + " | " + "$" + chargeString;
     }
-
-
 
 
 }

@@ -1,7 +1,10 @@
 package com.example.folkerse_subbook;
 
 /**
- * Created by cf on 2018-02-03.
+ * Exception thrown when value entered is negative
+ * @author folkerse
+ * @version 1.0
+ * @see Subscription
  */
 
 public class NegativeValueException extends Exception {
@@ -11,6 +14,9 @@ public class NegativeValueException extends Exception {
         this.value = value;
     }
 
+    /**
+     * @return Message explaining that the value is negative, shows value
+     */
     @Override
     public String toString(){
         return "Negative Value: " + Double.toString(this.value);

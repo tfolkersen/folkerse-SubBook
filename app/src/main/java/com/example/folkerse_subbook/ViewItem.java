@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class ViewItem extends AppCompatActivity {
 
+    //Views for the activity
     private Button buttonEdit;
     private Button buttonDelete;
     private TextView nameView;
@@ -26,18 +25,19 @@ public class ViewItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
 
-
+        //Save some objects
         intent = getIntent();
-
         subscription = (Subscription) intent.getSerializableExtra("sub");
 
+        //Get views
         nameView  = findViewById(R.id.nameView);
         secondView = findViewById(R.id.secondView);
         commentView = findViewById(R.id.commentView);
         buttonDelete = findViewById(R.id.buttonDelete);
         buttonEdit = findViewById(R.id.buttonEdit);
 
-        //Set up the view
+
+        //Set up the screen
         refreshView();
 
         //Add button listeners
@@ -58,8 +58,7 @@ public class ViewItem extends AppCompatActivity {
     }
 
     protected void editItem(){
-        Intent current = getIntent();
-        int index = (int) current.getSerializableExtra("index");
+        int index = (int) intent.getSerializableExtra("index");
 
         Intent intent = new Intent(this, EditItem.class);
         intent.putExtra("sub", subscription);
@@ -71,7 +70,6 @@ public class ViewItem extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        Log.i("RETURNED LMAO","asd");
         switch(resultCode){
             case IntentCodes.EDIT_ITEM:
                 setResult(IntentCodes.EDIT_ITEM, intent);

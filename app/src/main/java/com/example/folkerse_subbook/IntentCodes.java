@@ -1,7 +1,11 @@
 package com.example.folkerse_subbook;
 
 /**
- * Created by cf on 2018-02-03.
+ * Contains codes for Intents
+ *
+ * @version 1.0
+ * @author folkerse
+ * @see android.content.Intent
  */
 
 public abstract class IntentCodes {

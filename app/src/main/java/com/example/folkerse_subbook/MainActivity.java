@@ -10,25 +10,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Date;
-
 
 public class MainActivity extends AppCompatActivity {
 
+    //Views of the activity
     public ListView subDisplay;
     private Button buttonNew;
     private TextView costView;
     private SubscriptionList subList;
     private final String filename = "subList_contents.sav";
-
-
-    public MainActivity(){
-        super();
-        Log.i("CREATED","xd");
-        subList = new SubscriptionList();
-    }//end constructor
-
-
 
 
     @Override
@@ -42,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         costView = findViewById(R.id.costView);
 
         //Init subList
+        subList = new SubscriptionList();
         subList.load(this, filename);
         subList.setup(this, R.layout.list_element, subDisplay);
 
@@ -51,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 makeNew();
             }
-
         });
 
         subDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Done with listeners,
+        //Done setting up
         refreshDisplay();
     }
 
@@ -84,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        Subscription sub;
+
         switch(resultCode){
             case IntentCodes.DELETE_ITEM:
                 subList.remove((int) intent.getSerializableExtra("index"));
@@ -92,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case IntentCodes.NEW_ITEM:
-                Subscription sub = (Subscription) intent.getSerializableExtra("sub");
+                sub = (Subscription) intent.getSerializableExtra("sub");
                 subList.add(sub);
                 subList.save(this, filename);
                 refreshDisplay();
@@ -100,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
             case IntentCodes.EDIT_ITEM:
                 int index = (int) intent.getSerializableExtra("index");
-                Subscription subscription = (Subscription) intent.getSerializableExtra("sub");
-                subList.set(index, subscription);
+                sub = (Subscription) intent.getSerializableExtra("sub");
+                subList.set(index, sub);
                 subList.save(this, filename);
                 refreshDisplay();
                 break;
